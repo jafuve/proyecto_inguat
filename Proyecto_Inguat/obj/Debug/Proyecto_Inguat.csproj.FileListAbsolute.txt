@@ -1,0 +1,9 @@
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\bin\Debug\Proyecto_Inguat.exe.config
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\bin\Debug\Proyecto_Inguat.exe
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\bin\Debug\Proyecto_Inguat.pdb
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.csprojResolveAssemblyReference.cache
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Main.resources
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Properties.Resources.resources
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.csproj.GenerateResource.Cache
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.exe
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.pdb
