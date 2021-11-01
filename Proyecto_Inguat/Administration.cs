@@ -28,6 +28,7 @@ namespace Proyecto_Inguat
 
         private void LoadMainData()
         {
+            //USERS
             DataTable dtUsers = new DataTable();
             dtUsers.Columns.Add("Código");
             dtUsers.Columns.Add("Usuario");
@@ -41,6 +42,34 @@ namespace Proyecto_Inguat
             }//END FOREACH
 
             dgvUsers.DataSource = dtUsers;
+
+            //PLACES
+            DataTable dtPlaces = new DataTable();
+            dtPlaces.Columns.Add("Código");
+            dtPlaces.Columns.Add("Nombre");
+            dtPlaces.Columns.Add("Latitud");
+            dtPlaces.Columns.Add("Longitud");
+
+            foreach (Place place in GlobalVariables.PlacesList)
+            {
+                dtUsers.Rows.Add(place.Id, place.Name, place.Lat, place.Lng);
+            }//END FOREACH
+
+            dgvPlaces.DataSource = dtPlaces;
+
+            //ROUTES
+            DataTable dtRoutes = new DataTable();
+            dtRoutes.Columns.Add("Código");
+            dtRoutes.Columns.Add("Desde");
+            dtRoutes.Columns.Add("Hasta");
+            dtRoutes.Columns.Add("DistanciaKm");
+
+            foreach (Route route in GlobalVariables.RoutesList)
+            {
+                dtRoutes.Rows.Add(route.Id, route.From, route.To, route.DistanceKm);
+            }//END FOREACH
+
+            dgvRoutes.DataSource = dtRoutes;
 
         }//END FUNCTION
     }

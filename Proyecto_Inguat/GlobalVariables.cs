@@ -40,5 +40,6 @@ namespace Proyecto_Inguat
         public int Id { get; set; }
         public int From { get; set; } //Id from Place Class
         public int To { get; set; } // Id from Place Class
+        public double DistanceKm { get; set; }
     }//END CLASS
 }
