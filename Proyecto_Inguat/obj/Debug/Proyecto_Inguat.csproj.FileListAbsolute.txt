@@ -7,3 +7,5 @@ D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Propertie
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.csproj.GenerateResource.Cache
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.exe
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.pdb
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Login.resources
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Administration.resources

@@ -74,5 +74,19 @@ namespace Proyecto_Inguat
         }//END FUNCTION
 
         #endregion
+
+        private void btnLoginAdmin_Click(object sender, EventArgs e)
+        {
+            Login nf = new Login();
+            if (nf.ShowDialog(this) == DialogResult.OK)
+            {
+                Administration formAdmin = new Administration();
+                formAdmin.ShowDialog(this);
+            }
+            else
+            {
+                MessageBox.Show("Sin acceso");
+            }//END IF
+        }
     }
 }

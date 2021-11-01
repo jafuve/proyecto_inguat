@@ -1,1 +1,2 @@
 1;admin;admin;1;1
+2;diego;diego;1;1
