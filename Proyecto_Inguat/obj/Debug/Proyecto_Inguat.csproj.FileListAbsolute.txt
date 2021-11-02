@@ -9,3 +9,4 @@ D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.exe
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.pdb
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Login.resources
 D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Administration.resources
+D:\Proyectos\Proyecto_Inguat\Proyecto_Inguat\obj\Debug\Proyecto_Inguat.Test.resources

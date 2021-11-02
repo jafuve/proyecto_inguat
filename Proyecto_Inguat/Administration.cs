@@ -174,14 +174,16 @@ namespace Proyecto_Inguat
             //ROUTES
             DataTable dtRoutes = new DataTable();
             dtRoutes.Columns.Add("Código");
+            dtRoutes.Columns.Add("DesdeID");
             dtRoutes.Columns.Add("Desde");
+            dtRoutes.Columns.Add("HastaID");
             dtRoutes.Columns.Add("Hasta");
             dtRoutes.Columns.Add("DistanciaKm");
             dtRoutes.Columns.Add("Activo");
 
             foreach (Route route in GlobalVariables.RoutesList)
             {
-                dtRoutes.Rows.Add(route.Id, route.From, route.To, route.DistanceKm, route.Active);
+                dtRoutes.Rows.Add(route.Id, route.From_Id, route.From, route.To_Id, route.To, route.DistanceKm, route.Active);
             }//END FOREACH
 
             dgvRoutes.DataSource = dtRoutes;
