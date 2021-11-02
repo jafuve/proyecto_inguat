@@ -74,6 +74,13 @@
             this.cbRouteActive = new System.Windows.Forms.ComboBox();
             this.cbPlaceActive = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.cbUserActive = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbUserPassword = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbUserUsername = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnUserSave = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
@@ -85,6 +92,7 @@
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.panel7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -258,6 +266,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnUserSave);
+            this.groupBox4.Controls.Add(this.cbUserActive);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.tbUserPassword);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.tbUserUsername);
+            this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
@@ -565,6 +580,74 @@
             this.label9.TabIndex = 23;
             this.label9.Text = "Estado";
             // 
+            // cbUserActive
+            // 
+            this.cbUserActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUserActive.FormattingEnabled = true;
+            this.cbUserActive.Location = new System.Drawing.Point(19, 156);
+            this.cbUserActive.Name = "cbUserActive";
+            this.cbUserActive.Size = new System.Drawing.Size(219, 23);
+            this.cbUserActive.TabIndex = 32;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(15, 136);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 17);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "Estado";
+            // 
+            // tbUserPassword
+            // 
+            this.tbUserPassword.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUserPassword.Location = new System.Drawing.Point(19, 103);
+            this.tbUserPassword.Name = "tbUserPassword";
+            this.tbUserPassword.Size = new System.Drawing.Size(218, 22);
+            this.tbUserPassword.TabIndex = 30;
+            this.tbUserPassword.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(15, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 17);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Contraseña";
+            // 
+            // tbUserUsername
+            // 
+            this.tbUserUsername.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUserUsername.Location = new System.Drawing.Point(20, 46);
+            this.tbUserUsername.Name = "tbUserUsername";
+            this.tbUserUsername.Size = new System.Drawing.Size(218, 22);
+            this.tbUserUsername.TabIndex = 28;
+            this.tbUserUsername.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(16, 23);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(51, 17);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Usuario";
+            // 
+            // btnUserSave
+            // 
+            this.btnUserSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUserSave.Location = new System.Drawing.Point(17, 200);
+            this.btnUserSave.Name = "btnUserSave";
+            this.btnUserSave.Size = new System.Drawing.Size(220, 23);
+            this.btnUserSave.TabIndex = 33;
+            this.btnUserSave.Text = "Guardar";
+            this.btnUserSave.UseVisualStyleBackColor = true;
+            this.btnUserSave.Click += new System.EventHandler(this.btnUserSave_Click);
+            // 
             // Administration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -589,6 +672,8 @@
             this.panel3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -645,5 +730,12 @@
         private System.Windows.Forms.ComboBox cbRouteActive;
         private System.Windows.Forms.ComboBox cbPlaceActive;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnUserSave;
+        private System.Windows.Forms.ComboBox cbUserActive;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbUserPassword;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tbUserUsername;
+        private System.Windows.Forms.Label label12;
     }
 }

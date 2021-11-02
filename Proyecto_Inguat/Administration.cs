@@ -20,10 +20,8 @@ namespace Proyecto_Inguat
 
         private void Administration_Load(object sender, EventArgs e)
         {
-            //MAIN SETTINGS
-            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPlaces.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRoutes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            //load main settings
+            LoadMainSettings();
 
             //LOAD DATA IN GRIDVIEWS
             LoadMainData();
@@ -31,20 +29,19 @@ namespace Proyecto_Inguat
 
         private void LoadMainData()
         {
-            //USERS
-            DataTable dtUsers = new DataTable();
-            dtUsers.Columns.Add("Código");
-            dtUsers.Columns.Add("Usuario");
-            dtUsers.Columns.Add("Contraseña");
-            dtUsers.Columns.Add("Tipo");
-            dtUsers.Columns.Add("Activo");
+            LoadUsersData();
 
-            foreach(User user in GlobalVariables.UsersList)
-            {
-                dtUsers.Rows.Add(user.Id, user.Username, user.Password, user.Type, user.Active);
-            }//END FOREACH
 
-            dgvUsers.DataSource = dtUsers;
+            DataTable dtUserActive = new DataTable();
+            dtUserActive.Columns.Add("Id");
+            dtUserActive.Columns.Add("State");
+
+            dtUserActive.Rows.Add("1", "Habilitada");
+            dtUserActive.Rows.Add("0", "Inhabilitada");
+
+            cbUserActive.DataSource = dtUserActive;
+            cbUserActive.DisplayMember = "State";
+            cbUserActive.ValueMember = "Id";
 
             LoadPlacesData();
 
@@ -90,9 +87,9 @@ namespace Proyecto_Inguat
                         {
                             Id = Convert.ToInt16(splited[0]),
                             Name = splited[1].ToString(),
-                            Lat = Convert.ToDouble( splited[2] ),
+                            Lat = Convert.ToDouble(splited[2]),
                             Lng = Convert.ToDouble(splited[3]),
-                            Active = Convert.ToInt16( splited[4] )
+                            Active = Convert.ToInt16(splited[4])
                         });
 
                     }//END FOR
@@ -124,16 +121,6 @@ namespace Proyecto_Inguat
             cbRouteTo.DisplayMember = "Nombre";
             cbRouteTo.ValueMember = "Código";
 
-            DataTable dtPlaceActive = new DataTable();
-            dtPlaceActive.Columns.Add("Id");
-            dtPlaceActive.Columns.Add("State");
-
-            dtPlaceActive.Rows.Add("1", "Habilitada");
-            dtPlaceActive.Rows.Add("0", "Inhabilitada");
-
-            cbPlaceActive.DataSource = dtPlaceActive;
-            cbPlaceActive.DisplayMember = "State";
-            cbPlaceActive.ValueMember = "Id";
         }//END FUNCTION
 
         private void LoadRoutesData()
@@ -177,7 +164,7 @@ namespace Proyecto_Inguat
                             From = splited[2],
                             To_Id = Convert.ToInt16(splited[3]),
                             To = splited[4],
-                            DistanceKm = Convert.ToDouble (splited[5])
+                            DistanceKm = Convert.ToDouble(splited[5])
                         });
 
                     }//END FOR
@@ -199,16 +186,68 @@ namespace Proyecto_Inguat
 
             dgvRoutes.DataSource = dtRoutes;
 
-            DataTable dtRouteActive = new DataTable();
-            dtRouteActive.Columns.Add("Id");
-            dtRouteActive.Columns.Add("State");
+        }//END FUNCTION
 
-            dtRouteActive.Rows.Add("1", "Habilitada");
-            dtRouteActive.Rows.Add("0", "Inhabilitada");
+        private void LoadUsersData()
+        {
+            if (GlobalVariables.PlacesList.Count == 0)
+            {
+                string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_User_File;
 
-            cbRouteActive.DataSource = dtRouteActive;
-            cbRouteActive.DisplayMember = "State";
-            cbRouteActive.ValueMember = "Id";
+                string[] lines = null;
+
+                if (!File.Exists(path))
+                { // Create a file to write to   
+                    //using (StreamWriter sw = File.CreateText(path))
+                    //{
+                    //    // ID ; USERNAME ; PASSWORD ; TYPE ; ACTIVE
+                    //    // TYPE 1 = Admin, 2 = User
+                    //    // ACTIVE 1 = Active, 2 = Inactive
+                    //    sw.WriteLine("1;admin;admin;1;1");
+                    //    lines = new string[1];
+                    //    lines[0] = "1;admin;admin;1;1";
+                    //}
+                }
+                else
+                {
+                    //LOAD DATA IN GLOBAL VARIABLE
+                    lines = System.IO.File.ReadAllLines(path);
+                }//END IF
+
+                GlobalVariables.UsersList = new List<User>();
+
+                if (lines != null)
+                {
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string[] splited = lines[i].Split(';');
+
+                        GlobalVariables.UsersList.Add(new User()
+                        {
+                            Id = Convert.ToInt16(splited[0]),
+                            Username = splited[1].ToString(),
+                            Password = splited[2].ToString(),
+                            Type = Convert.ToInt16(splited[3]),
+                            Active = Convert.ToInt16(splited[4])
+                        });
+
+                    }//END FOR
+                }
+            }//END IF
+
+            DataTable dtUsers = new DataTable();
+            dtUsers.Columns.Add("Código");
+            dtUsers.Columns.Add("Usuario");
+            dtUsers.Columns.Add("Contraseña");
+            dtUsers.Columns.Add("Tipo");
+            dtUsers.Columns.Add("Activo");
+
+            foreach (User user in GlobalVariables.UsersList)
+            {
+                dtUsers.Rows.Add(user.Id, user.Username, user.Password, user.Type, user.Active);
+            }//END FOREACH
+
+            dgvUsers.DataSource = dtUsers;
 
         }//END FUNCTION
 
@@ -219,7 +258,7 @@ namespace Proyecto_Inguat
             //VALIDATION
             string err = string.Empty;
 
-            if(tbPlaceName.Text.Trim().Length == 0)
+            if (tbPlaceName.Text.Trim().Length == 0)
             {
                 err += "- Ingresa el nombre del lugar";
             }//EN IF
@@ -238,7 +277,7 @@ namespace Proyecto_Inguat
                     {
                         // ID ; NAME ; LAT ; LNG ; ACTIVE
                         sw.WriteLine($"1;{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.Text }");
-                        GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16( tbPlaceLat.Text ), Lng = Convert.ToInt16( tbPlaceLng.Text ), Active = Convert.ToInt16( cbPlaceActive.Text ) });
+                        GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.Text) });
                     }
                 }
                 else {
@@ -257,7 +296,7 @@ namespace Proyecto_Inguat
                 tbPlaceLat.Text = tbPlaceLng.Text = "0";
                 //REALOAD DATA
                 LoadPlacesData();
-            }catch(Exception x)
+            } catch (Exception x)
             {
                 MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -296,7 +335,7 @@ namespace Proyecto_Inguat
                     {
                         // ID ; FROM_ID ; FROM; TO_ID ; TO; DISTANCE ; ACTIVE
                         sw.WriteLine($"1;{ cbRouteFrom.SelectedValue.ToString().Trim()};{ cbRouteFrom.Text.ToString().Trim()};{ cbRouteTo.SelectedValue.ToString().Trim() };{ cbRouteTo.Text.ToString().Trim()};{ tbRouteDistanceKm.Text.Trim() };{ cbRouteActive.SelectedValue.ToString().Trim()}");
-                        GlobalVariables.RoutesList.Add(new Route() { Id = 1, From_Id = Convert.ToInt16( cbRouteFrom.SelectedValue ), From = cbRouteFrom.Text, To_Id = Convert.ToInt16( cbRouteTo.SelectedValue ), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble( tbRouteDistanceKm.Text ), Active = Convert.ToInt16( cbRouteActive.SelectedValue.ToString().Trim()) });
+                        GlobalVariables.RoutesList.Add(new Route() { Id = 1, From_Id = Convert.ToInt16(cbRouteFrom.SelectedValue), From = cbRouteFrom.Text, To_Id = Convert.ToInt16(cbRouteTo.SelectedValue), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble(tbRouteDistanceKm.Text), Active = Convert.ToInt16(cbRouteActive.SelectedValue.ToString().Trim()) });
                     }
                 }
                 else
@@ -327,5 +366,100 @@ namespace Proyecto_Inguat
                 this.Cursor = Cursors.Default;
             }
         }//END FUNCTION
+
+        private void btnUserSave_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+
+            //VALIDATION
+            string err = string.Empty;
+
+            if (tbUserUsername.Text.Trim().Length == 0)
+            {
+                err += "- Ingresa el nombre de usuario.";
+            }//EN IF
+
+            if (err.Trim().Length > 0)
+            {
+                MessageBox.Show(err, "ERROR DE VALIDACION", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }//END IF
+
+            try
+            {
+                string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_User_File;
+
+                if (!File.Exists(path))
+                { // Create a file to write to   
+                    using (StreamWriter sw = File.CreateText(path))
+                    {
+                        // ID ; USERNAME ; PASSWORD; TYPE ; ACTIVE
+                        sw.WriteLine($"1;{ tbUserUsername.Text.Trim()};{ tbUserPassword.Text.Trim()};1;{ cbUserActive.SelectedValue.ToString().Trim()}");
+                        GlobalVariables.UsersList.Add(new User() { Id = 1, Username = tbUserUsername.Text.Trim(), Password = tbUserPassword.Text, Type = 1, Active = Convert.ToInt16(cbUserActive.SelectedValue) });
+                    }
+                }
+                else
+                {
+                    int lines = System.IO.File.ReadAllLines(path).Length + 1;
+                    // id; name; lat; lng
+                    StreamWriter file = new StreamWriter(path, append: true);
+                    file.WriteLine($"{ lines };{ tbUserUsername.Text.Trim()};{ tbUserPassword.Text.Trim()};1;{ cbUserActive.SelectedValue.ToString().Trim()}");
+                    file.Close();
+
+                    GlobalVariables.UsersList.Add(new User() { Id = lines, Username = tbUserUsername.Text.Trim(), Password = tbUserPassword.Text, Type = 1, Active = Convert.ToInt16(cbUserActive.SelectedValue) });
+                }//END IF
+
+
+
+                MessageBox.Show("Usuario creado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                tbUserUsername.Text = tbUserPassword.Text = string.Empty;
+                //REALOAD DATA
+                LoadUsersData();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }//END FUNCTION
+
+        private void LoadMainSettings() {
+            //LOAD ACTIVE COMBOBOXES
+            DataTable cbActive = new DataTable();
+            cbActive.Columns.Add("Id");
+            cbActive.Columns.Add("State");
+
+            cbActive.Rows.Add("1", "Habilitada");
+            cbActive.Rows.Add("0", "Inhabilitada");
+
+            //COMBOBO PLACES
+            cbPlaceActive.DataSource = cbActive;
+            cbPlaceActive.BindingContext = new BindingContext();
+            cbPlaceActive.DisplayMember = "State";
+            cbPlaceActive.ValueMember = "Id";
+
+            //COMBOBOX ROUTES
+            cbRouteActive.DataSource = cbActive;
+            cbRouteActive.BindingContext = new BindingContext();
+            cbRouteActive.DisplayMember = "State";
+            cbRouteActive.ValueMember = "Id";
+
+            //COMBOBOX USERS
+            cbUserActive.DataSource = cbActive;
+            cbUserActive.BindingContext = new BindingContext();
+            cbUserActive.DisplayMember = "State";
+            cbUserActive.ValueMember = "Id";
+
+            //DGV SETTINGS
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPlaces.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRoutes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+        }//END FUNCTION
+
     }
 }

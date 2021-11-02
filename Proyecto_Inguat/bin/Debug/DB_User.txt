@@ -1,2 +1,5 @@
 1;admin;admin;1;1
 2;diego;diego;1;1
+3;user1;user1;1;1
+4;user2;user2;1;1
+5;user3;user3;1;1
