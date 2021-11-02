@@ -27,6 +27,12 @@ namespace Proyecto_Inguat
 
             // LOAD PLACES IN MAIN
             RouteGraph = LoadGraph();
+
+            //MAIN LOAD
+            LoadPlacesData();
+            LoadRoutesData();
+
+            dgvPlaces.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         #region FUNCTIONS
@@ -219,8 +225,11 @@ namespace Proyecto_Inguat
             return path.ToList();
         }
 
-        public static string GetPath(int[,] graph, int sourceNode, int destinationNode)
+        public static RouteSuggested GetPath(int[,] graph, int sourceNode, int destinationNode)
         {
+            List<Route> routes = new List<Route>();
+            double distance = 0;
+
             string res = string.Empty;
 
             var path = DijkstraAlgorithm(graph, sourceNode, destinationNode);
@@ -241,15 +250,200 @@ namespace Proyecto_Inguat
                 var formattedPath = string.Join("->", path);
                 res = $"{formattedPath} (length {pathLength})";
                 //MessageBox.Show($"{formattedPath} (length {pathLength})");
+
+
+                //ADD PATH TO LIST
+                for(int i = 0; i < path.Count - 1; i++)
+                {
+                    //var myItem = GlobalVariables.RoutesList.Find(item => item.Id == path[i] + 1 );
+                    //routes.Add(myItem);
+
+                    routes.Add(new Route()
+                    {
+                        Id = i + 1,
+                        From = GlobalVariables.PlacesList.Find(item => item.Id == path[i] + 1).Name,
+                        To = GlobalVariables.PlacesList.Find(item => item.Id == path[i + 1] + 1).Name,
+                        DistanceKm = graph[path[i], path[i + 1]]
+                    });
+
+                    distance = pathLength;
+                }//END FOR
+
+                
             }
 
-            return res;
+            return new RouteSuggested() { RouteList = routes, Distance = distance };
         }
+
+        int routeStart = 0;
+        int routeEnd = 0;
 
         private void btnCalculateRoute_Click(object sender, EventArgs e)
         {
-            string MinPath = GetPath(RouteGraph, 0, 3);
-            MessageBox.Show("Min " + MinPath);
+            
+            RouteSuggested suggestedRoute = GetPath(RouteGraph, routeStart, routeEnd);
+            dgvSuggestedRoute.Rows.Clear();
+
+            //FILL TABLE WITH ROUTES
+            for (int i = 0; i < suggestedRoute.RouteList.Count; i++) {
+                dgvSuggestedRoute.Rows.Add( i + 1, suggestedRoute.RouteList[i].From, suggestedRoute.RouteList[i].To, suggestedRoute.RouteList[i].DistanceKm, "--");
+            }//END FOR
+
+            lblDistance.Text = suggestedRoute.Distance.ToString();
+            
+            //SHOW TOTAL
         }
+
+        //MAIN LOAD
+        private void LoadPlacesData()
+        {
+            if (GlobalVariables.PlacesList.Count == 0)
+            {
+                string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Place_File;
+
+                string[] lines = null;
+
+                if (!File.Exists(path))
+                { 
+                }
+                else
+                {
+                    //LOAD DATA IN GLOBAL VARIABLE
+                    lines = System.IO.File.ReadAllLines(path);
+                }//END IF
+
+                GlobalVariables.PlacesList = new List<Place>();
+
+                if (lines != null)
+                {
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string[] splited = lines[i].Split(';');
+
+                        GlobalVariables.PlacesList.Add(new Place()
+                        {
+                            Id = Convert.ToInt16(splited[0]),
+                            Name = splited[1].ToString(),
+                            Lat = Convert.ToDouble(splited[2]),
+                            Lng = Convert.ToDouble(splited[3]),
+                            Active = Convert.ToInt16(splited[4])
+                        });
+
+                    }//END FOR
+                }
+            }//END IF
+
+            //PLACES
+            //DataTable dtPlaces = new DataTable();
+            //dtPlaces.Columns.Add("Código");
+            //dtPlaces.Columns.Add("Nombre");
+            //dtPlaces.Columns.Add("Latitud");
+            //dtPlaces.Columns.Add("Longitud");
+            //dtPlaces.Columns.Add("Activo");
+
+            int count = 1;
+            foreach (Place place in GlobalVariables.PlacesList)
+            {
+                //dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);    
+                dgvPlaces.Rows.Add(count, place.Name, false, false, place.Id);
+                count ++;
+            }//END FOREACH
+
+            //dgvPlaces.DataSource = dtPlaces;
+            
+
+        }//END FUNCTION
+
+        private void LoadRoutesData()
+        {
+            if (GlobalVariables.RoutesList.Count == 0)
+            {
+                string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Route_File;
+
+                string[] lines = null;
+
+                if (!File.Exists(path))
+                {
+                }
+                else
+                {
+                    //LOAD DATA IN GLOBAL VARIABLE
+                    lines = System.IO.File.ReadAllLines(path);
+                }//END IF
+
+                GlobalVariables.RoutesList = new List<Route>();
+
+                if (lines != null)
+                {
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string[] splited = lines[i].Split(';');
+
+                        GlobalVariables.RoutesList.Add(new Route()
+                        {
+                            Id = Convert.ToInt16(splited[0]),
+                            From_Id = Convert.ToInt16( splited[1].ToString() ),
+                            From = splited[2].ToString(),
+                            To_Id = Convert.ToInt16(splited[3]),
+                            To = splited[4].ToString(),
+                            DistanceKm = Convert.ToInt16(splited[5]),
+                            Active = Convert.ToInt16(splited[6])
+                        });
+
+                    }//END FOR
+                }
+            }//END IF
+
+            //int count = 1;
+            //foreach (Place place in GlobalVariables.PlacesList)
+            //{
+            //    //dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);    
+            //    dgvPlaces.Rows.Add(count, place.Name, false, false, place.Id);
+            //    count++;
+            //}//END FOREACH
+
+            //dgvPlaces.DataSource = dtPlaces;
+
+
+        }//END FUNCTION
+
+        private void dgvPlaces_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowindex = dgvPlaces.CurrentRow.Index;
+            
+            //Check to ensure that the row CheckBox is clicked.
+            if (e.ColumnIndex == 2)
+            {
+                routeStart = Convert.ToInt16(dgvPlaces.Rows[rowindex].Cells["ColumnId"].Value) - 1;
+                //Loop and uncheck all other CheckBoxes.
+                foreach (DataGridViewRow row in dgvPlaces.Rows)
+                {
+                    if (row.Index == e.RowIndex)
+                    {
+                        row.Cells["ColumnStart"].Value = !Convert.ToBoolean(row.Cells["ColumnStart"].EditedFormattedValue);
+                    }
+                    else
+                    {
+                        row.Cells["ColumnStart"].Value = false;
+                    }
+                }
+            }else if (e.ColumnIndex == 3)
+            {
+                routeEnd = Convert.ToInt16(dgvPlaces.Rows[rowindex].Cells["ColumnId"].Value) - 1;
+                //Loop and uncheck all other CheckBoxes.
+                foreach (DataGridViewRow row in dgvPlaces.Rows)
+                {
+                    if (row.Index == e.RowIndex)
+                    {
+                        row.Cells["ColumnEnd"].Value = !Convert.ToBoolean(row.Cells["ColumnEnd"].EditedFormattedValue);
+                    }
+                    else
+                    {
+                        row.Cells["ColumnEnd"].Value = false;
+                    }
+                }
+            }
+        }
+
     }
 }

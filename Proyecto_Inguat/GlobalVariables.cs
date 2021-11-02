@@ -46,4 +46,10 @@ namespace Proyecto_Inguat
         public double DistanceKm { get; set; }
         public int Active { get; set; }
     }//END CLASS
+
+    public class RouteSuggested
+    {
+        public List<Route> RouteList { get; set; }
+        public double Distance { get; set; }
+    }//END CLASS
 }
