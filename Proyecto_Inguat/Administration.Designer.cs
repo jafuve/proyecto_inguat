@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -63,6 +63,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPlaceLng = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnRouteSave = new System.Windows.Forms.Button();
+            this.tbRouteDistanceKm = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbRouteFrom = new System.Windows.Forms.ComboBox();
+            this.cbRouteTo = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbRouteActive = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
@@ -76,6 +85,7 @@
             this.groupBox3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlaces)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).BeginInit();
@@ -287,6 +297,15 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.cbRouteActive);
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Controls.Add(this.cbRouteTo);
+            this.groupBox6.Controls.Add(this.cbRouteFrom);
+            this.groupBox6.Controls.Add(this.tbRouteDistanceKm);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Controls.Add(this.btnRouteSave);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox6.Location = new System.Drawing.Point(0, 0);
@@ -301,22 +320,22 @@
             // 
             this.dgvUsers.BackgroundColor = System.Drawing.Color.White;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvUsers.GridColor = System.Drawing.Color.White;
             this.dgvUsers.Location = new System.Drawing.Point(3, 17);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUsers.Size = new System.Drawing.Size(615, 402);
             this.dgvUsers.TabIndex = 0;
             // 
@@ -330,8 +349,8 @@
             this.dgvPlaces.MultiSelect = false;
             this.dgvPlaces.Name = "dgvPlaces";
             this.dgvPlaces.ReadOnly = true;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvPlaces.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvPlaces.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPlaces.Size = new System.Drawing.Size(615, 402);
             this.dgvPlaces.TabIndex = 1;
             // 
@@ -345,8 +364,8 @@
             this.dgvRoutes.MultiSelect = false;
             this.dgvRoutes.Name = "dgvRoutes";
             this.dgvRoutes.ReadOnly = true;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRoutes.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRoutes.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRoutes.Size = new System.Drawing.Size(615, 402);
             this.dgvRoutes.TabIndex = 2;
             // 
@@ -371,7 +390,7 @@
             // btnPlaceSave
             // 
             this.btnPlaceSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlaceSave.Location = new System.Drawing.Point(16, 203);
+            this.btnPlaceSave.Location = new System.Drawing.Point(15, 205);
             this.btnPlaceSave.Name = "btnPlaceSave";
             this.btnPlaceSave.Size = new System.Drawing.Size(218, 23);
             this.btnPlaceSave.TabIndex = 6;
@@ -436,6 +455,93 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Longitud";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(14, 86);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 17);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Hasta";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(15, 29);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(46, 17);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Desde";
+            // 
+            // btnRouteSave
+            // 
+            this.btnRouteSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRouteSave.Location = new System.Drawing.Point(17, 273);
+            this.btnRouteSave.Name = "btnRouteSave";
+            this.btnRouteSave.Size = new System.Drawing.Size(218, 23);
+            this.btnRouteSave.TabIndex = 12;
+            this.btnRouteSave.Text = "Guardar";
+            this.btnRouteSave.UseVisualStyleBackColor = true;
+            this.btnRouteSave.Click += new System.EventHandler(this.btnRouteSave_Click);
+            // 
+            // tbRouteDistanceKm
+            // 
+            this.tbRouteDistanceKm.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbRouteDistanceKm.Location = new System.Drawing.Point(17, 169);
+            this.tbRouteDistanceKm.Name = "tbRouteDistanceKm";
+            this.tbRouteDistanceKm.Size = new System.Drawing.Size(218, 22);
+            this.tbRouteDistanceKm.TabIndex = 18;
+            this.tbRouteDistanceKm.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(13, 146);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(103, 17);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Distancia en Km";
+            // 
+            // cbRouteFrom
+            // 
+            this.cbRouteFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRouteFrom.FormattingEnabled = true;
+            this.cbRouteFrom.Location = new System.Drawing.Point(18, 49);
+            this.cbRouteFrom.Name = "cbRouteFrom";
+            this.cbRouteFrom.Size = new System.Drawing.Size(216, 23);
+            this.cbRouteFrom.TabIndex = 19;
+            // 
+            // cbRouteTo
+            // 
+            this.cbRouteTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRouteTo.FormattingEnabled = true;
+            this.cbRouteTo.Location = new System.Drawing.Point(17, 106);
+            this.cbRouteTo.Name = "cbRouteTo";
+            this.cbRouteTo.Size = new System.Drawing.Size(216, 23);
+            this.cbRouteTo.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(17, 206);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 17);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Estado";
+            // 
+            // cbRouteActive
+            // 
+            this.cbRouteActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRouteActive.FormattingEnabled = true;
+            this.cbRouteActive.Location = new System.Drawing.Point(17, 226);
+            this.cbRouteActive.Name = "cbRouteActive";
+            this.cbRouteActive.Size = new System.Drawing.Size(216, 23);
+            this.cbRouteActive.TabIndex = 22;
+            // 
             // Administration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -462,6 +568,8 @@
             this.groupBox3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlaces)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).EndInit();
@@ -503,5 +611,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbPlaceLat;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbRouteDistanceKm;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnRouteSave;
+        private System.Windows.Forms.ComboBox cbRouteTo;
+        private System.Windows.Forms.ComboBox cbRouteFrom;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbRouteActive;
     }
 }

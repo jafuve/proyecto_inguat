@@ -1,0 +1,5 @@
+1;Puerto Barrios;0;0
+2;Petén;0;0
+3;Cobán;0;0
+4;Guatemala;0;0
+5;Retalhuleu;0;0

@@ -38,8 +38,11 @@ namespace Proyecto_Inguat
     public class Route
     {
         public int Id { get; set; }
-        public int From { get; set; } //Id from Place Class
-        public int To { get; set; } // Id from Place Class
+        public int From_Id { get; set; } //Id from Place Class
+        public string From { get; set; } //Id from Place Class
+        public int To_Id { get; set; } // Id from Place Class
+        public string To { get; set; } // Id from Place Class
         public double DistanceKm { get; set; }
+        public int Active { get; set; }
     }//END CLASS
 }
