@@ -22,6 +22,8 @@ namespace Proyecto_Inguat
         {
             //MAIN SETTINGS
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPlaces.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRoutes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             //LOAD DATA IN GRIDVIEWS
             LoadMainData();
@@ -89,7 +91,8 @@ namespace Proyecto_Inguat
                             Id = Convert.ToInt16(splited[0]),
                             Name = splited[1].ToString(),
                             Lat = Convert.ToDouble( splited[2] ),
-                            Lng = Convert.ToDouble(splited[3])
+                            Lng = Convert.ToDouble(splited[3]),
+                            Active = Convert.ToInt16( splited[4] )
                         });
 
                     }//END FOR
@@ -102,10 +105,11 @@ namespace Proyecto_Inguat
             dtPlaces.Columns.Add("Nombre");
             dtPlaces.Columns.Add("Latitud");
             dtPlaces.Columns.Add("Longitud");
+            dtPlaces.Columns.Add("Activo");
 
             foreach (Place place in GlobalVariables.PlacesList)
             {
-                dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng);
+                dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);
             }//END FOREACH
 
             dgvPlaces.DataSource = dtPlaces;
@@ -119,6 +123,17 @@ namespace Proyecto_Inguat
             cbRouteTo.BindingContext = new BindingContext();
             cbRouteTo.DisplayMember = "Nombre";
             cbRouteTo.ValueMember = "Código";
+
+            DataTable dtPlaceActive = new DataTable();
+            dtPlaceActive.Columns.Add("Id");
+            dtPlaceActive.Columns.Add("State");
+
+            dtPlaceActive.Rows.Add("1", "Habilitada");
+            dtPlaceActive.Rows.Add("0", "Inhabilitada");
+
+            cbPlaceActive.DataSource = dtPlaceActive;
+            cbPlaceActive.DisplayMember = "State";
+            cbPlaceActive.ValueMember = "Id";
         }//END FUNCTION
 
         private void LoadRoutesData()
@@ -175,10 +190,11 @@ namespace Proyecto_Inguat
             dtRoutes.Columns.Add("Desde");
             dtRoutes.Columns.Add("Hasta");
             dtRoutes.Columns.Add("DistanciaKm");
+            dtRoutes.Columns.Add("Activo");
 
             foreach (Route route in GlobalVariables.RoutesList)
             {
-                dtRoutes.Rows.Add(route.Id, route.From, route.To, route.DistanceKm);
+                dtRoutes.Rows.Add(route.Id, route.From, route.To, route.DistanceKm, route.Active);
             }//END FOREACH
 
             dgvRoutes.DataSource = dtRoutes;
@@ -220,24 +236,20 @@ namespace Proyecto_Inguat
                 { // Create a file to write to   
                     using (StreamWriter sw = File.CreateText(path))
                     {
-                        // ID ; USERNAME ; PASSWORD ; TYPE ; ACTIVE
-                        // TYPE 1 = Admin, 2 = User
-                        // ACTIVE 1 = Active, 2 = Inactive
-                        sw.WriteLine($"1;{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() }");
-                        GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16( tbPlaceLat.Text ), Lng = Convert.ToInt16( tbPlaceLng.Text ) });
+                        // ID ; NAME ; LAT ; LNG ; ACTIVE
+                        sw.WriteLine($"1;{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.Text }");
+                        GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16( tbPlaceLat.Text ), Lng = Convert.ToInt16( tbPlaceLng.Text ), Active = Convert.ToInt16( cbPlaceActive.Text ) });
                     }
                 }
                 else {
                     int lines = System.IO.File.ReadAllLines(path).Length + 1;
                     // id; name; lat; lng
                     StreamWriter file = new StreamWriter(path, append: true);
-                    file.WriteLine($"{ lines };{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() }");
+                    file.WriteLine($"{ lines };{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.Text }");
                     file.Close();
 
-                    GlobalVariables.PlacesList.Add(new Place() { Id = lines, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text) });
+                    GlobalVariables.PlacesList.Add(new Place() { Id = lines, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.Text) });
                 }//END IF
-
-                
 
                 MessageBox.Show("Lugar creado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -33,6 +33,7 @@ namespace Proyecto_Inguat
         public string Name { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
+        public int Active { get; set; }
     }//END CLASS
 
     public class Route
