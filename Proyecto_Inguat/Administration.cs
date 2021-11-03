@@ -270,42 +270,69 @@ namespace Proyecto_Inguat
                 return;
             }//END IF
 
-            try {
+            if (placeEditId == -1)
+            {
+
+                try
+                {
+                    string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Place_File;
+
+                    if (!File.Exists(path))
+                    { // Create a file to write to   
+                        using (StreamWriter sw = File.CreateText(path))
+                        {
+                            // ID ; NAME ; LAT ; LNG ; ACTIVE
+                            sw.WriteLine($"1;{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.SelectedValue }");
+                            GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.SelectedValue) });
+                        }
+                    }
+                    else
+                    {
+                        int lines = System.IO.File.ReadAllLines(path).Length + 1;
+                        // id; name; lat; lng
+                        StreamWriter file = new StreamWriter(path, append: true);
+                        file.WriteLine($"{ lines };{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.SelectedValue }");
+                        file.Close();
+
+                        GlobalVariables.PlacesList.Add(new Place() { Id = lines, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.SelectedValue) });
+                    }//END IF
+
+                    MessageBox.Show("Lugar creado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    tbPlaceName.Text = string.Empty;
+                    tbPlaceLat.Text = tbPlaceLng.Text = "0";
+                    //REALOAD DATA
+                    LoadPlacesData();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Default;
+                }
+            }
+            else {
+                //edit
+                dgvPlaces.Rows[placeEditIdx].Cells["Activo"].Value = cbPlaceActive.SelectedValue.ToString();
+
+                //
                 string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Place_File;
 
-                if (!File.Exists(path))
-                { // Create a file to write to   
-                    using (StreamWriter sw = File.CreateText(path))
-                    {
-                        // ID ; NAME ; LAT ; LNG ; ACTIVE
-                        sw.WriteLine($"1;{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.Text }");
-                        GlobalVariables.PlacesList.Add(new Place() { Id = 1, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.Text) });
-                    }
-                }
-                else {
-                    int lines = System.IO.File.ReadAllLines(path).Length + 1;
-                    // id; name; lat; lng
-                    StreamWriter file = new StreamWriter(path, append: true);
-                    file.WriteLine($"{ lines };{ tbPlaceName.Text.Trim()};{ tbPlaceLat.Text.Trim() };{ tbPlaceLng.Text.Trim() };{ cbPlaceActive.Text }");
-                    file.Close();
+                StreamWriter file = new StreamWriter(path, append: false);
 
-                    GlobalVariables.PlacesList.Add(new Place() { Id = lines, Name = tbPlaceName.Text, Lat = Convert.ToInt16(tbPlaceLat.Text), Lng = Convert.ToInt16(tbPlaceLng.Text), Active = Convert.ToInt16(cbPlaceActive.Text) });
-                }//END IF
+                for (int i = 0; i < dgvPlaces.Rows.Count-1; i++) {
+                    file.WriteLine($"{ dgvPlaces.Rows[i].Cells[0].Value };{ dgvPlaces.Rows[i].Cells[1].Value };{ dgvPlaces.Rows[i].Cells[2].Value };{ dgvPlaces.Rows[i].Cells[3].Value };{ dgvPlaces.Rows[i].Cells[4].Value }");
+                }//END FOR
+                file.Close();
 
-                MessageBox.Show("Lugar creado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                placeEditId = -1;
 
-                tbPlaceName.Text = string.Empty;
-                tbPlaceLat.Text = tbPlaceLng.Text = "0";
-                //REALOAD DATA
-                LoadPlacesData();
-            } catch (Exception x)
-            {
-                MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
+                MessageBox.Show("Lugar modificado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 this.Cursor = Cursors.Default;
-            }
+            }//END IF
 
         }//END FUNCTION
 
@@ -463,5 +490,23 @@ namespace Proyecto_Inguat
 
         }//END FUNCTION
 
+
+        int placeEditId = -1, placeEditIdx = -1;
+
+        private void btnNewPlace_Click(object sender, EventArgs e)
+        {
+            tbPlaceName.Text = string.Empty;
+            tbPlaceLat.Text = tbPlaceLng.Text = "0";
+            cbPlaceActive.SelectedValue = "1";
+            placeEditId = placeEditIdx = -1;
+        }
+
+        private void dgvPlaces_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowindex = placeEditIdx = dgvPlaces.CurrentRow.Index;
+            placeEditId = Convert.ToInt16(dgvPlaces.Rows[rowindex].Cells["Código"].Value);
+            tbPlaceName.Text = dgvPlaces.Rows[rowindex].Cells["Nombre"].Value.ToString();
+            cbPlaceActive.SelectedValue = dgvPlaces.Rows[rowindex].Cells["Activo"].Value.ToString();
+        }
     }
 }
