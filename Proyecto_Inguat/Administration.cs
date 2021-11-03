@@ -354,46 +354,70 @@ namespace Proyecto_Inguat
                 return;
             }//END IF
 
-            try
+            if (routeEditId == -1)
             {
+                try
+                {
+                    string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Route_File;
+
+                    if (!File.Exists(path))
+                    { // Create a file to write to   
+                        using (StreamWriter sw = File.CreateText(path))
+                        {
+                            // ID ; FROM_ID ; FROM; TO_ID ; TO; DISTANCE ; ACTIVE
+                            sw.WriteLine($"1;{ cbRouteFrom.SelectedValue.ToString().Trim()};{ cbRouteFrom.Text.ToString().Trim()};{ cbRouteTo.SelectedValue.ToString().Trim() };{ cbRouteTo.Text.ToString().Trim()};{ tbRouteDistanceKm.Text.Trim() };{ cbRouteActive.SelectedValue.ToString().Trim()}");
+                            GlobalVariables.RoutesList.Add(new Route() { Id = 1, From_Id = Convert.ToInt16(cbRouteFrom.SelectedValue), From = cbRouteFrom.Text, To_Id = Convert.ToInt16(cbRouteTo.SelectedValue), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble(tbRouteDistanceKm.Text), Active = Convert.ToInt16(cbRouteActive.SelectedValue.ToString().Trim()) });
+                        }
+                    }
+                    else
+                    {
+                        int lines = System.IO.File.ReadAllLines(path).Length + 1;
+                        // id; name; lat; lng
+                        StreamWriter file = new StreamWriter(path, append: true);
+                        file.WriteLine($"{ lines };{ cbRouteFrom.SelectedValue.ToString().Trim()};{ cbRouteFrom.Text.ToString().Trim()};{ cbRouteTo.SelectedValue.ToString().Trim() };{ cbRouteTo.Text.ToString().Trim()};{ tbRouteDistanceKm.Text.Trim() };{ cbRouteActive.SelectedValue.ToString().Trim()}");
+                        file.Close();
+
+                        GlobalVariables.RoutesList.Add(new Route() { Id = lines, From_Id = Convert.ToInt16(cbRouteFrom.SelectedValue), From = cbRouteFrom.Text, To_Id = Convert.ToInt16(cbRouteTo.SelectedValue), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble(tbRouteDistanceKm.Text), Active = Convert.ToInt16(cbRouteActive.SelectedValue.ToString().Trim()) });
+                    }//END IF
+
+
+
+                    MessageBox.Show("Ruta creada con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    tbRouteDistanceKm.Text = "0";
+                    //REALOAD DATA
+                    LoadRoutesData();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Default;
+                }
+            }
+            else {
+                //edit
+                dgvRoutes.Rows[routeEditIdx].Cells["Activo"].Value = cbRouteActive.SelectedValue.ToString();
+
+                //
                 string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Route_File;
 
-                if (!File.Exists(path))
-                { // Create a file to write to   
-                    using (StreamWriter sw = File.CreateText(path))
-                    {
-                        // ID ; FROM_ID ; FROM; TO_ID ; TO; DISTANCE ; ACTIVE
-                        sw.WriteLine($"1;{ cbRouteFrom.SelectedValue.ToString().Trim()};{ cbRouteFrom.Text.ToString().Trim()};{ cbRouteTo.SelectedValue.ToString().Trim() };{ cbRouteTo.Text.ToString().Trim()};{ tbRouteDistanceKm.Text.Trim() };{ cbRouteActive.SelectedValue.ToString().Trim()}");
-                        GlobalVariables.RoutesList.Add(new Route() { Id = 1, From_Id = Convert.ToInt16(cbRouteFrom.SelectedValue), From = cbRouteFrom.Text, To_Id = Convert.ToInt16(cbRouteTo.SelectedValue), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble(tbRouteDistanceKm.Text), Active = Convert.ToInt16(cbRouteActive.SelectedValue.ToString().Trim()) });
-                    }
-                }
-                else
+                StreamWriter file = new StreamWriter(path, append: false);
+
+                for (int i = 0; i < dgvRoutes.Rows.Count - 1; i++)
                 {
-                    int lines = System.IO.File.ReadAllLines(path).Length + 1;
-                    // id; name; lat; lng
-                    StreamWriter file = new StreamWriter(path, append: true);
-                    file.WriteLine($"{ lines };{ cbRouteFrom.SelectedValue.ToString().Trim()};{ cbRouteFrom.Text.ToString().Trim()};{ cbRouteTo.SelectedValue.ToString().Trim() };{ cbRouteTo.Text.ToString().Trim()};{ tbRouteDistanceKm.Text.Trim() };{ cbRouteActive.SelectedValue.ToString().Trim()}");
-                    file.Close();
+                    file.WriteLine($"{ dgvRoutes.Rows[i].Cells[0].Value };{ dgvRoutes.Rows[i].Cells[1].Value };{ dgvRoutes.Rows[i].Cells[2].Value };{ dgvRoutes.Rows[i].Cells[3].Value };{ dgvRoutes.Rows[i].Cells[4].Value };{ dgvRoutes.Rows[i].Cells[5].Value };{ dgvRoutes.Rows[i].Cells[6].Value }");
+                }//END FOR
+                file.Close();
 
-                    GlobalVariables.RoutesList.Add(new Route() { Id = lines, From_Id = Convert.ToInt16(cbRouteFrom.SelectedValue), From = cbRouteFrom.Text, To_Id = Convert.ToInt16(cbRouteTo.SelectedValue), To = cbRouteTo.Text, DistanceKm = Convert.ToDouble(tbRouteDistanceKm.Text), Active = Convert.ToInt16(cbRouteActive.SelectedValue.ToString().Trim()) });
-                }//END IF
+                routeEditId = -1;
 
+                MessageBox.Show("Ruta modificado con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
-                MessageBox.Show("Ruta creada con éxito", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                tbRouteDistanceKm.Text = "0";
-                //REALOAD DATA
-                LoadRoutesData();
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
                 this.Cursor = Cursors.Default;
-            }
+            }//END IF
         }//END FUNCTION
 
         private void btnUserSave_Click(object sender, EventArgs e)
@@ -492,6 +516,7 @@ namespace Proyecto_Inguat
 
 
         int placeEditId = -1, placeEditIdx = -1;
+        int routeEditId = -1, routeEditIdx = -1;
 
         private void btnNewPlace_Click(object sender, EventArgs e)
         {
@@ -499,6 +524,27 @@ namespace Proyecto_Inguat
             tbPlaceLat.Text = tbPlaceLng.Text = "0";
             cbPlaceActive.SelectedValue = "1";
             placeEditId = placeEditIdx = -1;
+        }
+
+        private void btnNewRoute_Click(object sender, EventArgs e)
+        {
+            routeEditId = routeEditIdx = -1;
+            tbRouteDistanceKm.Text = "0";
+        }
+
+        private void btnNewUser_Click(object sender, EventArgs e)
+        {
+            tbUserPassword.Text = tbUserUsername.Text = string.Empty;
+        }
+
+        private void dgvRoutes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowindex = routeEditIdx = dgvRoutes.CurrentRow.Index;
+            routeEditId = Convert.ToInt16(dgvRoutes.Rows[rowindex].Cells["Código"].Value);
+            cbRouteFrom.SelectedValue = Convert.ToInt16(dgvRoutes.Rows[rowindex].Cells["DesdeId"].Value);
+            cbRouteTo.SelectedValue = Convert.ToInt16(dgvRoutes.Rows[rowindex].Cells["HastaId"].Value);
+            tbRouteDistanceKm.Text = dgvRoutes.Rows[rowindex].Cells["DistanciaKm"].Value.ToString();
+            cbRouteActive.SelectedValue = dgvRoutes.Rows[rowindex].Cells["Activo"].Value.ToString();
         }
 
         private void dgvPlaces_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

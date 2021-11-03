@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -80,6 +80,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbUserUsername = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnNewRoute = new System.Windows.Forms.Button();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.btnNewUser = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
@@ -99,6 +103,8 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -188,8 +194,8 @@
             this.dgvPlaces.MultiSelect = false;
             this.dgvPlaces.Name = "dgvPlaces";
             this.dgvPlaces.ReadOnly = true;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvPlaces.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvPlaces.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPlaces.Size = new System.Drawing.Size(615, 402);
             this.dgvPlaces.TabIndex = 1;
             this.dgvPlaces.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlaces_CellDoubleClick);
@@ -375,10 +381,11 @@
             this.dgvRoutes.MultiSelect = false;
             this.dgvRoutes.Name = "dgvRoutes";
             this.dgvRoutes.ReadOnly = true;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvRoutes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvRoutes.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRoutes.Size = new System.Drawing.Size(615, 402);
             this.dgvRoutes.TabIndex = 2;
+            this.dgvRoutes.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoutes_CellContentDoubleClick);
             // 
             // panel8
             // 
@@ -390,6 +397,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.panel10);
             this.groupBox6.Controls.Add(this.cbRouteActive);
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.cbRouteTo);
@@ -541,8 +549,8 @@
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvUsers.Size = new System.Drawing.Size(615, 402);
             this.dgvUsers.TabIndex = 0;
             // 
@@ -556,6 +564,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.panel11);
             this.groupBox4.Controls.Add(this.btnUserSave);
             this.groupBox4.Controls.Add(this.cbUserActive);
             this.groupBox4.Controls.Add(this.label10);
@@ -610,7 +619,6 @@
             this.tbUserPassword.Name = "tbUserPassword";
             this.tbUserPassword.Size = new System.Drawing.Size(218, 22);
             this.tbUserPassword.TabIndex = 30;
-            this.tbUserPassword.Text = "0";
             // 
             // label11
             // 
@@ -629,7 +637,6 @@
             this.tbUserUsername.Name = "tbUserUsername";
             this.tbUserUsername.Size = new System.Drawing.Size(218, 22);
             this.tbUserUsername.TabIndex = 28;
-            this.tbUserUsername.Text = "0";
             // 
             // label12
             // 
@@ -640,6 +647,46 @@
             this.label12.Size = new System.Drawing.Size(51, 17);
             this.label12.TabIndex = 27;
             this.label12.Text = "Usuario";
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.btnNewRoute);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel10.Location = new System.Drawing.Point(3, 384);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(244, 35);
+            this.panel10.TabIndex = 23;
+            // 
+            // btnNewRoute
+            // 
+            this.btnNewRoute.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewRoute.Location = new System.Drawing.Point(13, 7);
+            this.btnNewRoute.Name = "btnNewRoute";
+            this.btnNewRoute.Size = new System.Drawing.Size(218, 23);
+            this.btnNewRoute.TabIndex = 7;
+            this.btnNewRoute.Text = "NUEVA RUTA";
+            this.btnNewRoute.UseVisualStyleBackColor = true;
+            this.btnNewRoute.Click += new System.EventHandler(this.btnNewRoute_Click);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.btnNewUser);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel11.Location = new System.Drawing.Point(3, 384);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(244, 35);
+            this.panel11.TabIndex = 34;
+            // 
+            // btnNewUser
+            // 
+            this.btnNewUser.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewUser.Location = new System.Drawing.Point(13, 7);
+            this.btnNewUser.Name = "btnNewUser";
+            this.btnNewUser.Size = new System.Drawing.Size(218, 23);
+            this.btnNewUser.TabIndex = 7;
+            this.btnNewUser.Text = "NUEVO USUARIO";
+            this.btnNewUser.UseVisualStyleBackColor = true;
+            this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
             // 
             // Administration
             // 
@@ -675,6 +722,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -730,5 +779,9 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbUserUsername;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnNewRoute;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Button btnNewUser;
     }
 }
