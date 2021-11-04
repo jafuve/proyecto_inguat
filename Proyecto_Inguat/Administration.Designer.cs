@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -58,6 +59,8 @@
             this.dgvRoutes = new System.Windows.Forms.DataGridView();
             this.panel8 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnNewRoute = new System.Windows.Forms.Button();
             this.cbRouteActive = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbRouteTo = new System.Windows.Forms.ComboBox();
@@ -73,6 +76,8 @@
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.panel6 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.btnNewUser = new System.Windows.Forms.Button();
             this.btnUserSave = new System.Windows.Forms.Button();
             this.cbUserActive = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -80,10 +85,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tbUserUsername = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.btnNewRoute = new System.Windows.Forms.Button();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.btnNewUser = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.tbStadisticsVisitors = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dgvPlacesFavorites = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
@@ -98,13 +107,17 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).BeginInit();
             this.groupBox6.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.groupBox4.SuspendLayout();
-            this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlacesFavorites)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -140,6 +153,7 @@
             this.tabControlAdmin.Controls.Add(this.tabPage1);
             this.tabControlAdmin.Controls.Add(this.tabPage2);
             this.tabControlAdmin.Controls.Add(this.tabPage3);
+            this.tabControlAdmin.Controls.Add(this.tabPage4);
             this.tabControlAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlAdmin.HotTrack = true;
@@ -417,6 +431,26 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "DATOS DE RUTA";
             // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.btnNewRoute);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel10.Location = new System.Drawing.Point(3, 384);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(244, 35);
+            this.panel10.TabIndex = 23;
+            // 
+            // btnNewRoute
+            // 
+            this.btnNewRoute.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewRoute.Location = new System.Drawing.Point(13, 7);
+            this.btnNewRoute.Name = "btnNewRoute";
+            this.btnNewRoute.Size = new System.Drawing.Size(218, 23);
+            this.btnNewRoute.TabIndex = 7;
+            this.btnNewRoute.Text = "NUEVA RUTA";
+            this.btnNewRoute.UseVisualStyleBackColor = true;
+            this.btnNewRoute.Click += new System.EventHandler(this.btnNewRoute_Click);
+            // 
             // cbRouteActive
             // 
             this.cbRouteActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -582,6 +616,26 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "DATOS DE USAURIO";
             // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.btnNewUser);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel11.Location = new System.Drawing.Point(3, 384);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(244, 35);
+            this.panel11.TabIndex = 34;
+            // 
+            // btnNewUser
+            // 
+            this.btnNewUser.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewUser.Location = new System.Drawing.Point(13, 7);
+            this.btnNewUser.Name = "btnNewUser";
+            this.btnNewUser.Size = new System.Drawing.Size(218, 23);
+            this.btnNewUser.TabIndex = 7;
+            this.btnNewUser.Text = "NUEVO USUARIO";
+            this.btnNewUser.UseVisualStyleBackColor = true;
+            this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
+            // 
             // btnUserSave
             // 
             this.btnUserSave.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -648,45 +702,96 @@
             this.label12.TabIndex = 27;
             this.label12.Text = "Usuario";
             // 
-            // panel10
+            // tabPage4
             // 
-            this.panel10.Controls.Add(this.btnNewRoute);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(3, 384);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(244, 35);
-            this.panel10.TabIndex = 23;
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.panel13);
+            this.tabPage4.Controls.Add(this.groupBox7);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(906, 442);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Estadísticas";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // btnNewRoute
+            // groupBox7
             // 
-            this.btnNewRoute.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewRoute.Location = new System.Drawing.Point(13, 7);
-            this.btnNewRoute.Name = "btnNewRoute";
-            this.btnNewRoute.Size = new System.Drawing.Size(218, 23);
-            this.btnNewRoute.TabIndex = 7;
-            this.btnNewRoute.Text = "NUEVA RUTA";
-            this.btnNewRoute.UseVisualStyleBackColor = true;
-            this.btnNewRoute.Click += new System.EventHandler(this.btnNewRoute_Click);
+            this.groupBox7.Controls.Add(this.panel12);
+            this.groupBox7.Controls.Add(this.tbStadisticsVisitors);
+            this.groupBox7.Controls.Add(this.label15);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(3, 3);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(250, 436);
+            this.groupBox7.TabIndex = 1;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "ESTADÍSTICAS GENERALES";
             // 
-            // panel11
+            // panel12
             // 
-            this.panel11.Controls.Add(this.btnNewUser);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel11.Location = new System.Drawing.Point(3, 384);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(244, 35);
-            this.panel11.TabIndex = 34;
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel12.Location = new System.Drawing.Point(3, 398);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(244, 35);
+            this.panel12.TabIndex = 34;
             // 
-            // btnNewUser
+            // tbStadisticsVisitors
             // 
-            this.btnNewUser.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewUser.Location = new System.Drawing.Point(13, 7);
-            this.btnNewUser.Name = "btnNewUser";
-            this.btnNewUser.Size = new System.Drawing.Size(218, 23);
-            this.btnNewUser.TabIndex = 7;
-            this.btnNewUser.Text = "NUEVO USUARIO";
-            this.btnNewUser.UseVisualStyleBackColor = true;
-            this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
+            this.tbStadisticsVisitors.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbStadisticsVisitors.Location = new System.Drawing.Point(20, 46);
+            this.tbStadisticsVisitors.Name = "tbStadisticsVisitors";
+            this.tbStadisticsVisitors.ReadOnly = true;
+            this.tbStadisticsVisitors.Size = new System.Drawing.Size(218, 22);
+            this.tbStadisticsVisitors.TabIndex = 28;
+            this.tbStadisticsVisitors.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(16, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(134, 17);
+            this.label15.TabIndex = 27;
+            this.label15.Text = "Número de visitantes";
+            // 
+            // panel13
+            // 
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel13.Location = new System.Drawing.Point(253, 3);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(15, 436);
+            this.panel13.TabIndex = 3;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.dgvPlacesFavorites);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox8.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox8.Location = new System.Drawing.Point(268, 3);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(635, 436);
+            this.groupBox8.TabIndex = 4;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "SITIOS TURÍSTICOS PREFERIDOS";
+            // 
+            // dgvPlacesFavorites
+            // 
+            this.dgvPlacesFavorites.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPlacesFavorites.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPlacesFavorites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPlacesFavorites.GridColor = System.Drawing.Color.White;
+            this.dgvPlacesFavorites.Location = new System.Drawing.Point(3, 17);
+            this.dgvPlacesFavorites.MultiSelect = false;
+            this.dgvPlacesFavorites.Name = "dgvPlacesFavorites";
+            this.dgvPlacesFavorites.ReadOnly = true;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvPlacesFavorites.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvPlacesFavorites.Size = new System.Drawing.Size(629, 416);
+            this.dgvPlacesFavorites.TabIndex = 0;
             // 
             // Administration
             // 
@@ -716,14 +821,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.panel10.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.panel10.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlacesFavorites)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -783,5 +893,13 @@
         private System.Windows.Forms.Button btnNewRoute;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Button btnNewUser;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.DataGridView dgvPlacesFavorites;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.TextBox tbStadisticsVisitors;
+        private System.Windows.Forms.Label label15;
     }
 }
