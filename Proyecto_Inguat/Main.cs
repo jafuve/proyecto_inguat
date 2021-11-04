@@ -33,6 +33,8 @@ namespace Proyecto_Inguat
             LoadRoutesData();
 
             dgvPlaces.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRoutes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSuggestedRoute.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         #region FUNCTIONS
@@ -90,6 +92,9 @@ namespace Proyecto_Inguat
             {
                 Administration formAdmin = new Administration();
                 formAdmin.ShowDialog(this);
+
+                LoadRoutesData(true);
+                LoadPlacesData(true);
             }
             else
             {
@@ -295,9 +300,9 @@ namespace Proyecto_Inguat
         }
 
         //MAIN LOAD
-        private void LoadPlacesData()
+        private void LoadPlacesData(bool loadForce = false)
         {
-            if (GlobalVariables.PlacesList.Count == 0)
+            if (GlobalVariables.PlacesList.Count == 0 || loadForce)
             {
                 string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Place_File;
 
@@ -341,12 +346,33 @@ namespace Proyecto_Inguat
             //dtPlaces.Columns.Add("Longitud");
             //dtPlaces.Columns.Add("Activo");
 
+            dgvPlaces.Rows.Clear();
+
             int count = 1;
             foreach (Place place in GlobalVariables.PlacesList)
             {
                 //dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);    
-                dgvPlaces.Rows.Add(count, place.Name, false, false, place.Id);
-                count ++;
+
+                if (place.Active == 1)
+                {
+                    dgvPlaces.Rows.Add(count, place.Name, false, false, place.Id);
+                    dgvPlaces.Rows[dgvPlaces.Rows.Count - 1].ReadOnly = true;
+                }
+                else {
+                    DataGridViewRow row = (DataGridViewRow)dgvPlaces.Rows[0].Clone();
+                    //DataGridViewRow row = new DataGridViewRow();
+                    row.Cells[0].Value = "-";
+                    row.Cells[1].Value = place.Name;
+                    row.Cells[2].Value = false;
+                    row.Cells[3].Value = false;
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells[4].Value = 5;
+                    
+                    row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+                    
+                    dgvPlaces.Rows.Add(row);
+                }
+                count++;
             }//END FOREACH
 
             //dgvPlaces.DataSource = dtPlaces;
@@ -354,9 +380,9 @@ namespace Proyecto_Inguat
 
         }//END FUNCTION
 
-        private void LoadRoutesData()
+        private void LoadRoutesData(bool loadForce = false)
         {
-            if (GlobalVariables.RoutesList.Count == 0)
+            if (GlobalVariables.RoutesList.Count == 0 || loadForce )
             {
                 string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Route_File;
 
@@ -394,15 +420,33 @@ namespace Proyecto_Inguat
                 }
             }//END IF
 
-            //int count = 1;
-            //foreach (Place place in GlobalVariables.PlacesList)
-            //{
-            //    //dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);    
-            //    dgvPlaces.Rows.Add(count, place.Name, false, false, place.Id);
-            //    count++;
-            //}//END FOREACH
+            dgvRoutes.Rows.Clear();
 
-            //dgvPlaces.DataSource = dtPlaces;
+            int count = 1;
+            foreach (Route route in GlobalVariables.RoutesList)
+            {
+                //dtPlaces.Rows.Add(place.Id, place.Name, place.Lat, place.Lng, place.Active);    
+
+                if (route.Active == 1)
+                {
+                    dgvRoutes.Rows.Add(count, route.From, route.To, route.DistanceKm, route.Id);
+                }
+                else
+                {
+                    DataGridViewRow row = (DataGridViewRow)dgvRoutes.Rows[0].Clone();
+                    //DataGridViewRow row = new DataGridViewRow();
+                    row.Cells[0].Value = "-";
+                    row.Cells[1].Value = route.From;
+                    row.Cells[2].Value = route.To;
+                    row.Cells[3].Value = route.DistanceKm;
+                    row.Cells[4].Value = route.Id;
+
+                    row.DefaultCellStyle.BackColor = Color.PaleVioletRed;
+
+                    dgvRoutes.Rows.Add(row);
+                }
+                count++;
+            }//END FOREACH
 
 
         }//END FUNCTION
@@ -410,7 +454,7 @@ namespace Proyecto_Inguat
         private void dgvPlaces_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int rowindex = dgvPlaces.CurrentRow.Index;
-            
+            string id = dgvPlaces.Rows[rowindex].Cells["ColumnSelect"].Value.ToString();
             //Check to ensure that the row CheckBox is clicked.
             if (e.ColumnIndex == 2)
             {
@@ -418,7 +462,11 @@ namespace Proyecto_Inguat
                 //Loop and uncheck all other CheckBoxes.
                 foreach (DataGridViewRow row in dgvPlaces.Rows)
                 {
-                    if (row.Index == e.RowIndex)
+                    if(id == "-")
+                    {
+                        row.Cells["ColumnStart"].Value = false;
+                    }
+                    else if (row.Index == e.RowIndex)
                     {
                         row.Cells["ColumnStart"].Value = !Convert.ToBoolean(row.Cells["ColumnStart"].EditedFormattedValue);
                     }
@@ -433,7 +481,11 @@ namespace Proyecto_Inguat
                 //Loop and uncheck all other CheckBoxes.
                 foreach (DataGridViewRow row in dgvPlaces.Rows)
                 {
-                    if (row.Index == e.RowIndex)
+                    if (id == "-")
+                    {
+                        row.Cells["ColumnEnd"].Value = false;
+                    }
+                    else if (row.Index == e.RowIndex)
                     {
                         row.Cells["ColumnEnd"].Value = !Convert.ToBoolean(row.Cells["ColumnEnd"].EditedFormattedValue);
                     }
@@ -447,3 +499,4 @@ namespace Proyecto_Inguat
 
     }
 }
+
