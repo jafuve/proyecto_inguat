@@ -295,7 +295,42 @@ namespace Proyecto_Inguat
             }//END FOR
 
             lblDistance.Text = suggestedRoute.Distance.ToString();
-            
+
+            //SAVE STADISTICS FILE
+            string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Stadistics_File;
+
+            if (!File.Exists(path))
+            { // Create a file to write to   
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    // TYPE 1 = VISIT, 2 = PLACE; PLACE_ID; 
+                    sw.WriteLine($"1;-"); //VISIT
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = -1 });
+
+                    sw.WriteLine($"2;{ routeStart + 1 }"); //START
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1 });
+
+                    sw.WriteLine($"2;{ routeEnd + 1 }"); //END
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1 });
+                }
+            }
+            else
+            {
+                StreamWriter file = new StreamWriter(path, append: true);                
+                file.WriteLine($"1;-"); //VISIT
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = -1 });
+
+                file.WriteLine($"2;{ routeStart + 1 }"); //START
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1 });
+
+                file.WriteLine($"2;{ routeEnd + 1 }"); //END
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1 });
+
+                file.Close();
+
+            }//END IF
+
+
             //SHOW TOTAL
         }
 

@@ -11,11 +11,13 @@ namespace Proyecto_Inguat
         public static List<User> UsersList = new List<User>();
         public static List<Place> PlacesList = new List<Place>();
         public static List<Route> RoutesList = new List<Route>();
+        public static List<Stadistics> StadisticsList = new List<Stadistics>();
 
         //FILE NAMES
         public static string DB_User_File = "/DB_User.txt";
         public static string DB_Place_File = "/DB_Place.txt";
         public static string DB_Route_File = "/DB_Route.txt";
+        public static string DB_Stadistics_File = "/DB_Stadistics.txt";
     }//END CLASS
 
     public class User
@@ -52,4 +54,10 @@ namespace Proyecto_Inguat
         public List<Route> RouteList { get; set; }
         public double Distance { get; set; }
     }//END CLASS
+
+    public class Stadistics
+    {
+        public int Type { get; set; }
+        public int PlaceId { get; set; }public static List<Route> RoutesList = new List<Route>();
+    }
 }
