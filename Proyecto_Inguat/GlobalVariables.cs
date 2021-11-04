@@ -12,6 +12,7 @@ namespace Proyecto_Inguat
         public static List<Place> PlacesList = new List<Place>();
         public static List<Route> RoutesList = new List<Route>();
         public static List<Stadistics> StadisticsList = new List<Stadistics>();
+        public static int Visitors = 0;
 
         //FILE NAMES
         public static string DB_User_File = "/DB_User.txt";
@@ -58,6 +59,7 @@ namespace Proyecto_Inguat
     public class Stadistics
     {
         public int Type { get; set; }
-        public int PlaceId { get; set; }public static List<Route> RoutesList = new List<Route>();
+        public int PlaceId { get; set; }
+        public string PlaceName { get; set; }
     }
 }

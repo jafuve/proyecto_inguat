@@ -282,6 +282,8 @@ namespace Proyecto_Inguat
 
         int routeStart = 0;
         int routeEnd = 0;
+        string routeStartName = string.Empty;
+        string routeEndName = string.Empty;
 
         private void btnCalculateRoute_Click(object sender, EventArgs e)
         {
@@ -304,27 +306,27 @@ namespace Proyecto_Inguat
                 using (StreamWriter sw = File.CreateText(path))
                 {
                     // TYPE 1 = VISIT, 2 = PLACE; PLACE_ID; 
-                    sw.WriteLine($"1;-"); //VISIT
-                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = -1 });
+                    sw.WriteLine($"1;0;0"); //VISIT
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = 0, PlaceName = "0" });
 
-                    sw.WriteLine($"2;{ routeStart + 1 }"); //START
-                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1 });
+                    sw.WriteLine($"2;{ routeStart + 1 };{ routeStartName }"); //START
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1, PlaceName = routeStartName });
 
-                    sw.WriteLine($"2;{ routeEnd + 1 }"); //END
-                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1 });
+                    sw.WriteLine($"2;{ routeEnd + 1 };{ routeEndName }"); //END
+                    GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1, PlaceName = routeEndName });
                 }
             }
             else
             {
                 StreamWriter file = new StreamWriter(path, append: true);                
-                file.WriteLine($"1;-"); //VISIT
-                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = -1 });
+                file.WriteLine($"1;0;0"); //VISIT
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 1, PlaceId = 0 });
 
-                file.WriteLine($"2;{ routeStart + 1 }"); //START
-                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1 });
+                file.WriteLine($"2;{ routeStart + 1 };{ routeStartName }"); //START
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeStart + 1, PlaceName = routeStartName });
 
-                file.WriteLine($"2;{ routeEnd + 1 }"); //END
-                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1 });
+                file.WriteLine($"2;{ routeEnd + 1 };{ routeEndName }"); //END
+                GlobalVariables.StadisticsList.Add(new Stadistics() { Type = 2, PlaceId = routeEnd + 1, PlaceName = routeEndName });
 
                 file.Close();
 
@@ -494,6 +496,7 @@ namespace Proyecto_Inguat
             if (e.ColumnIndex == 2)
             {
                 routeStart = Convert.ToInt16(dgvPlaces.Rows[rowindex].Cells["ColumnId"].Value) - 1;
+                routeStartName = dgvPlaces.Rows[rowindex].Cells["ColumnPlace"].Value.ToString();
                 //Loop and uncheck all other CheckBoxes.
                 foreach (DataGridViewRow row in dgvPlaces.Rows)
                 {
@@ -513,6 +516,7 @@ namespace Proyecto_Inguat
             }else if (e.ColumnIndex == 3)
             {
                 routeEnd = Convert.ToInt16(dgvPlaces.Rows[rowindex].Cells["ColumnId"].Value) - 1;
+                routeEndName = dgvPlaces.Rows[rowindex].Cells["ColumnPlace"].Value.ToString();
                 //Loop and uncheck all other CheckBoxes.
                 foreach (DataGridViewRow row in dgvPlaces.Rows)
                 {

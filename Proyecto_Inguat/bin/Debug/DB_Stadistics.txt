@@ -1,3 +1,12 @@
-1;-
-2;2
-2;4
+1;0;0
+2;1;Puerto Barrios
+2;4;Guatemala
+1;0;0
+2;2;Petén
+2;4;Guatemala
+1;0;0
+2;2;Petén
+2;3;Cobán
+1;0;0
+2;3;Cobán
+2;2;Petén

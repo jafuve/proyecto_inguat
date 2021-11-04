@@ -25,6 +25,9 @@ namespace Proyecto_Inguat
 
             //LOAD DATA IN GRIDVIEWS
             LoadMainData();
+
+            //LOAD STADISTICS
+            LoadStadistics();
         }
 
         private void LoadMainData()
@@ -554,5 +557,65 @@ namespace Proyecto_Inguat
             tbPlaceName.Text = dgvPlaces.Rows[rowindex].Cells["Nombre"].Value.ToString();
             cbPlaceActive.SelectedValue = dgvPlaces.Rows[rowindex].Cells["Activo"].Value.ToString();
         }
+
+        private void LoadStadistics() {
+
+            //FILL LIST WITH DATA
+            #region LOAD DATA
+            string path = Directory.GetCurrentDirectory() + GlobalVariables.DB_Stadistics_File;
+
+            string[] lines = null;
+
+            if (!File.Exists(path))
+            { // Create a file to write to   
+              
+            }
+            else
+            {
+                //LOAD DATA IN GLOBAL VARIABLE
+                lines = System.IO.File.ReadAllLines(path);
+            }//END IF
+
+            GlobalVariables.StadisticsList = new List<Stadistics>();
+
+            if (lines != null)
+            {
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string[] splited = lines[i].Split(';');
+
+                    if ( Convert.ToInt16( splited[0] ) == 1)
+                    {
+                        GlobalVariables.Visitors++;
+                    }
+                    else
+                    {
+                        GlobalVariables.StadisticsList.Add(new Stadistics()
+                        {
+                            Type = Convert.ToInt16(splited[0]),
+                            PlaceId = Convert.ToInt16(splited[1]),
+                            PlaceName = splited[2].ToString()
+                        });
+                    }//END IF
+
+                }//END FOR
+            }
+            #endregion
+
+            #region SHOW DATA
+
+            var list = GlobalVariables.StadisticsList
+                        .GroupBy(x => x.PlaceName)
+                        .Select(y => new { PlaceId = y.Key, Visits = y.Count() })
+                        .OrderByDescending(z => z.Visits)
+                        .ToList();
+
+            tbStadisticsVisitors.Text = GlobalVariables.Visitors.ToString();
+
+            dgvPlacesFavorites.DataSource = list;
+
+            #endregion
+
+        }//END FUNCTION
     }
 }
