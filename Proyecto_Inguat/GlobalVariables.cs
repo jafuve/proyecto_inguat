@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Proyecto_Inguat
 {
     /// <summary>
-    /// CLASS QUE CONTIENE TODAS LAS VARIABLES
+    /// CLASS QUE CONTIENE TODAS LAS VARIABLES - MODIFICADO PARA GITHUB
     /// </summary>
     public class GlobalVariables
     {
