@@ -3,3 +3,5 @@
 3;Cobán;0;0;1
 4;Guatemala;0;0;1
 5;Retalhuleu;0;0;0
+6;Puerto San Jose;0;0;1
+7;Xela;0;0;1

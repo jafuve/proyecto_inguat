@@ -52,7 +52,6 @@
     <Compile Include="Administration.Designer.cs">
       <DependentUpon>Administration.cs</DependentUpon>
     </Compile>
-    <Compile Include="AlgoritmoDijkstra.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>

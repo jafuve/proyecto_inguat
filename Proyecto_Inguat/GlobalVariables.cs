@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Inguat
 {
+    /// <summary>
+    /// CLASS QUE CONTIENE TODAS LAS VARIABLES
+    /// </summary>
     public class GlobalVariables
     {
         public static List<User> UsersList = new List<User>();
